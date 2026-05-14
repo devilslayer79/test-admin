@@ -9,13 +9,13 @@ export const formatTime = (seconds) => {
 };
 
 export const getResult = (percentage) => {
-  if (percentage >= 96) return "Sangat Teliti";
+  if (percentage >= 96) return "Sangat Baik";
 
   if (percentage >= 80) return "Baik";
 
   if (percentage >= 65) return "Cukup";
 
-  if (percentage >= 50) return "Kurang Teliti";
+  if (percentage >= 50) return "Kurang";
 
   return "Perlu Belajar";
 };

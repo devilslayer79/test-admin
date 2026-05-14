@@ -14,7 +14,7 @@ export default function QuizScreen({
     <div style={styles.page}>
       <div style={styles.card}>
         <div style={styles.header}>
-          <h1 style={styles.title}>Test Ketelitian Admin Gudang</h1>
+          <h1 style={styles.title}>Test Admin Pembelian</h1>
 
           <div style={styles.timerBox}>⏱ {formatTime(timeLeft)}</div>
 
