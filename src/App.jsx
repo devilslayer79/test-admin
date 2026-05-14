@@ -6,6 +6,7 @@ import styles from "./styles/styles";
 import StartScreen from "./components/StartScreen";
 import QuizScreen from "./components/QuizScreen";
 import ResultScreen from "./components/ResultScreen";
+import { shuffleArray } from "./utils/helpers";
 
 export default function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -15,6 +16,7 @@ export default function App() {
   const [timeLeft, setTimeLeft] = useState(300);
   const [started, setStarted] = useState(false);
   const [userAnswers, setUserAnswers] = useState([]);
+  const [quizQuestions, setQuizQuestions] = useState([]);
 
   useEffect(() => {
     if (!started) return;
@@ -32,27 +34,26 @@ export default function App() {
   }, [timeLeft, started]);
 
   const handleNext = () => {
-    const isCorrect =
-      selectedAnswer === questions[currentQuestion].answer;
-  
+    const isCorrect = selectedAnswer === quizQuestions[currentQuestion].answer;
+
     if (isCorrect) {
       setScore((prev) => prev + 1);
     }
-  
+
     // simpan jawaban user
     setUserAnswers((prev) => [
       ...prev,
       {
-        questionId: questions[currentQuestion].id,
-        question: questions[currentQuestion].text,
+        questionId: quizQuestions[currentQuestion].id,
+        question: quizQuestions[currentQuestion].text,
         selectedAnswer,
-        correctAnswer: questions[currentQuestion].answer,
-        options: questions[currentQuestion].options,
+        correctAnswer: quizQuestions[currentQuestion].answer,
+        options: quizQuestions[currentQuestion].options,
         isCorrect,
       },
     ]);
-  
-    if (currentQuestion + 1 < questions.length) {
+
+    if (currentQuestion + 1 < quizQuestions.length) {
       setCurrentQuestion((prev) => prev + 1);
       setSelectedAnswer(null);
     } else {
@@ -60,7 +61,7 @@ export default function App() {
     }
   };
 
-  const percentage = Math.round((score / questions.length) * 100);
+  const percentage = Math.round((score / quizQuestions.length) * 100);
 
   const getResult = () => {
     if (percentage >= 96) return "Sangat Baik";
@@ -73,17 +74,20 @@ export default function App() {
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-  
-    return `${minutes}:${remainingSeconds
-      .toString()
-      .padStart(2, "0")}`;
+
+    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
 
   if (!started) {
     return (
       <StartScreen
         questions={questions}
-        onStart={() => setStarted(true)}
+        onStart={() => {
+          const shuffled = shuffleArray(questions);
+
+          setQuizQuestions(shuffled);
+          setStarted(true);
+        }}
         styles={styles}
       />
     );
@@ -93,7 +97,7 @@ export default function App() {
     return (
       <ResultScreen
         score={score}
-        totalQuestions={questions.length}
+        totalQuestions={quizQuestions.length}
         percentage={percentage}
         getResult={getResult}
         styles={styles}
@@ -104,7 +108,7 @@ export default function App() {
 
   return (
     <QuizScreen
-      questions={questions}
+      questions={quizQuestions}
       currentQuestion={currentQuestion}
       selectedAnswer={selectedAnswer}
       setSelectedAnswer={setSelectedAnswer}
@@ -114,5 +118,4 @@ export default function App() {
       styles={styles}
     />
   );
-  
 }
