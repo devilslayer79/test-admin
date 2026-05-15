@@ -8,6 +8,8 @@ import QuizScreen from "./components/QuizScreen";
 import ResultScreen from "./components/ResultScreen";
 import { shuffleArray } from "./utils/helpers";
 
+import LoginScreen from "./components/LoginScreen";
+
 export default function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -17,6 +19,10 @@ export default function App() {
   const [started, setStarted] = useState(false);
   const [userAnswers, setUserAnswers] = useState([]);
   const [quizQuestions, setQuizQuestions] = useState([]);
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   useEffect(() => {
     if (!started) return;
@@ -77,6 +83,27 @@ export default function App() {
 
     return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
+
+  const handlePasswordLogin = () => {
+    if (passwordInput === "DMP123") {
+      setIsAuthenticated(true);
+      setPasswordError("");
+    } else {
+      setPasswordError("Password salah!");
+    }
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <LoginScreen
+        passwordInput={passwordInput}
+        setPasswordInput={setPasswordInput}
+        passwordError={passwordError}
+        handlePasswordLogin={handlePasswordLogin}
+        styles={styles}
+      />
+    );
+  }
 
   if (!started) {
     return (
