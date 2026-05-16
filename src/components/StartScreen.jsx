@@ -34,7 +34,15 @@ export default function StartScreen({
             fontSize: "16px",
           }}
         />
-        <button style={styles.startButton} onClick={onStart}>
+        <button
+          style={{
+            ...styles.startButton,
+            opacity: !participantName.trim() ? 0.5 : 1,
+            cursor: !participantName.trim() ? "not-allowed" : "pointer",
+          }}
+          onClick={onStart}
+          disabled={!participantName.trim()}
+        >
           Mulai Test
         </button>
       </div>
