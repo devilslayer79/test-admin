@@ -7,7 +7,7 @@ import StartScreen from "./components/StartScreen";
 import QuizScreen from "./components/QuizScreen";
 import ResultScreen from "./components/ResultScreen";
 import { shuffleArray } from "./utils/helpers";
-import { supabase } from "./lib/supabase";  
+import { supabase } from "./lib/supabase";
 
 import LoginScreen from "./components/LoginScreen";
 
@@ -28,16 +28,16 @@ export default function App() {
 
   useEffect(() => {
     if (!started) return;
-  
+
     if (timeLeft <= 0) {
       finishQuiz();
       return;
     }
-  
+
     const timer = setInterval(() => {
       setTimeLeft((prev) => prev - 1);
     }, 1000);
-  
+
     return () => clearInterval(timer);
   }, [timeLeft, started]);
 
@@ -88,7 +88,7 @@ export default function App() {
 
   const finishQuiz = async () => {
     await saveResult();
-  
+
     setFinished(true);
   };
 
@@ -102,22 +102,21 @@ export default function App() {
   };
 
   const saveResult = async () => {
-    const percentage = Math.round(
-      (score / quizQuestions.length) * 100
-    );
-  
-    const { data, error } = await supabase
-      .from("quiz_results")
-      .insert([
-        {
-          participant_name: participantName,
-          score: score,
-          percentage: percentage,
-          total_questions: quizQuestions.length,
-          duration: 300 - timeLeft,
-        },
-      ]);
-  
+    const percentage = Math.round((score / quizQuestions.length) * 100);
+
+    const { data, error } = await supabase.from("quiz_results").insert([
+      {
+        participant_name: participantName,
+        score: score,
+        percentage: percentage,
+        total_questions: quizQuestions.length,
+        duration: 300 - timeLeft,
+        timestamp: new Date().toLocaleString("sv-SE", {
+          timeZone: "Asia/Jayapura",
+        }),
+      },
+    ]);
+
     if (error) {
       console.error("Supabase Error:", error);
     } else {
