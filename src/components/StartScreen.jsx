@@ -22,7 +22,7 @@ export default function StartScreen({
         </div>
         <input
           type="text"
-          placeholder="Masukkan nama peserta"
+          placeholder="Masukkan nama"
           value={participantName}
           onChange={(e) => setParticipantName(e.target.value)}
           style={{
