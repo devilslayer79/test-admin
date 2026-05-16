@@ -34,3 +34,32 @@ export function shuffleArray(array) {
 
   return newArray;
 }
+
+export function shuffleQuestionOptions(question) {
+  const correctAnswer =
+    question.options[question.answer];
+
+  const shuffledOptions = [...question.options];
+
+  for (
+    let i = shuffledOptions.length - 1;
+    i > 0;
+    i--
+  ) {
+    const j = Math.floor(Math.random() * (i + 1));
+
+    [shuffledOptions[i], shuffledOptions[j]] = [
+      shuffledOptions[j],
+      shuffledOptions[i],
+    ];
+  }
+
+  const newAnswerIndex =
+    shuffledOptions.indexOf(correctAnswer);
+
+  return {
+    ...question,
+    options: shuffledOptions,
+    answer: newAnswerIndex,
+  };
+}

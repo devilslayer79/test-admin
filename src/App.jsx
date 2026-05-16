@@ -6,7 +6,7 @@ import styles from "./styles/styles";
 import StartScreen from "./components/StartScreen";
 import QuizScreen from "./components/QuizScreen";
 import ResultScreen from "./components/ResultScreen";
-import { shuffleArray } from "./utils/helpers";
+import { shuffleArray, shuffleQuestionOptions } from "./utils/helpers";
 import { supabase } from "./lib/supabase";
 
 import LoginScreen from "./components/LoginScreen";
@@ -143,9 +143,13 @@ export default function App() {
         participantName={participantName}
         setParticipantName={setParticipantName}
         onStart={() => {
-          const shuffled = shuffleArray(questions);
+          const shuffledQuestions = shuffleArray(questions);
 
-          setQuizQuestions(shuffled);
+          const randomizedQuestions = shuffledQuestions.map((question) =>
+            shuffleQuestionOptions(question)
+          );
+
+          setQuizQuestions(randomizedQuestions);
           setStarted(true);
         }}
         styles={styles}
