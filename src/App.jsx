@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import questions from "./data/questions";
 import styles from "./styles/styles";
 
+import AdminDashboard from "./pages/AdminDashboard";
+
 import StartScreen from "./components/StartScreen";
 import QuizScreen from "./components/QuizScreen";
 import ResultScreen from "./components/ResultScreen";
@@ -44,30 +46,34 @@ export default function App() {
 
   const handleNext = () => {
     if (isSaving) return;
-    const isCorrect = selectedAnswer === quizQuestions[currentQuestion].answer;
 
-    if (isCorrect) {
-      setScore((prev) => prev + 1);
-    }
+    const currentQ = quizQuestions[currentQuestion];
 
-    // simpan jawaban user
-    setUserAnswers((prev) => [
-      ...prev,
-      {
-        questionId: quizQuestions[currentQuestion].id,
-        question: quizQuestions[currentQuestion].text,
-        selectedAnswer,
-        correctAnswer: quizQuestions[currentQuestion].answer,
-        options: quizQuestions[currentQuestion].options,
-        isCorrect,
-      },
-    ]);
+    const isCorrect = selectedAnswer === currentQ.answer;
+
+    const newScore = isCorrect ? score + 1 : score;
+
+    setScore(newScore);
+
+    const newAnswer = {
+      questionId: currentQ.id,
+      question: currentQ.text,
+      selectedAnswer,
+      correctAnswer: currentQ.answer,
+      options: currentQ.options,
+      isCorrect,
+    };
+
+    const finalAnswers = [...userAnswers, newAnswer];
+
+    setUserAnswers(finalAnswers);
 
     if (currentQuestion + 1 < quizQuestions.length) {
       setCurrentQuestion((prev) => prev + 1);
+
       setSelectedAnswer(null);
     } else {
-      finishQuiz();
+      finishQuiz(finalAnswers, newScore);
     }
   };
 
@@ -88,13 +94,13 @@ export default function App() {
     return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
 
-  const finishQuiz = async () => {
+  const finishQuiz = async (finalAnswers = userAnswers, finalScore = score) => {
     if (finished || isSaving) return;
 
     setIsSaving(true);
 
     try {
-      await saveResult();
+      await saveResult(finalAnswers, finalScore);
 
       setFinished(true);
     } catch (error) {
@@ -113,19 +119,20 @@ export default function App() {
     }
   };
 
-  const saveResult = async () => {
-    const percentage = Math.round((score / quizQuestions.length) * 100);
+  const saveResult = async (finalAnswers, finalScore) => {
+    const percentage = Math.round((finalScore / quizQuestions.length) * 100);
 
     const { data, error } = await supabase.from("quiz_results").insert([
       {
         participant_name: participantName,
-        score: score,
+        score: finalScore,
         percentage: percentage,
         total_questions: quizQuestions.length,
         duration: 300 - timeLeft,
         timestamp: new Date().toLocaleString("sv-SE", {
           timeZone: "Asia/Jayapura",
         }),
+        answers: finalAnswers,
       },
     ]);
 
@@ -194,6 +201,7 @@ export default function App() {
       />
     );
   }
+  // return <AdminDashboard />;
 
   return (
     <QuizScreen
