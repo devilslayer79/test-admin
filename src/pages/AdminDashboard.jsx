@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { supabase } from "../lib/supabase";
+import AdminLogin from "../components/AdminLogin";
 
 export default function AdminDashboard() {
   const [results, setResults] = useState([]);
@@ -10,6 +11,7 @@ export default function AdminDashboard() {
     fetchResults();
   }, []);
 
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
   const fetchResults = async () => {
     const { data, error } = await supabase
       .from("quiz_results")
@@ -24,6 +26,10 @@ export default function AdminDashboard() {
 
     setLoading(false);
   };
+
+  if (!isAdminAuthenticated) {
+    return <AdminLogin onSuccess={() => setIsAdminAuthenticated(true)} />;
+  }
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -60,9 +66,7 @@ export default function AdminDashboard() {
               <td>{item.duration} detik</td>
 
               <td>
-                {new Date(
-                  item.created_at
-                ).toLocaleString("id-ID", {
+                {new Date(item.created_at).toLocaleString("id-ID", {
                   timeZone: "Asia/Jayapura",
                 })}
               </td>
