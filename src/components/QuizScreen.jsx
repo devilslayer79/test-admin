@@ -48,11 +48,14 @@ export default function QuizScreen({
 
         <button
           onClick={handleNext}
-          disabled={isSaving}
+          disabled={isSaving || selectedAnswer === null}
           style={{
             ...styles.nextButton,
-            opacity: isSaving ? 0.5 : 1,
-            cursor: isSaving ? "not-allowed" : "pointer",
+
+            opacity: isSaving || selectedAnswer === null ? 0.5 : 1,
+
+            cursor:
+              isSaving || selectedAnswer === null ? "not-allowed" : "pointer",
           }}
         >
           {isSaving
