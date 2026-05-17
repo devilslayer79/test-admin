@@ -7,6 +7,11 @@ const styles = {
     alignItems: "center",
     padding: "20px",
     fontFamily: "Arial, sans-serif",
+
+    userSelect: "none",
+    WebkitUserSelect: "none",
+    MozUserSelect: "none",
+    msUserSelect: "none",
   },
 
   card: {

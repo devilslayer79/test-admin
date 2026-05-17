@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../styles/styles";
 
 export default function QuizScreen({
@@ -11,6 +11,115 @@ export default function QuizScreen({
   timeLeft,
   isSaving,
 }) {
+  useEffect(() => {
+    const preventCopy = (e) => {
+      e.preventDefault();
+    };
+
+    const preventSelect = (e) => {
+      e.preventDefault();
+    };
+
+    const handleKeyDown = (e) => {
+
+      // Ctrl+C
+      if (e.ctrlKey && e.key === "c") {
+        e.preventDefault();
+      }
+
+      // Ctrl+V
+      if (e.ctrlKey && e.key === "v") {
+        e.preventDefault();
+      }
+
+      // Ctrl+X
+      if (e.ctrlKey && e.key === "x") {
+        e.preventDefault();
+      }
+
+      // Ctrl+U
+      if (e.ctrlKey && e.key === "u") {
+        e.preventDefault();
+      }
+
+      // F12
+      if (e.key === "F12") {
+        e.preventDefault();
+      }
+
+      // Ctrl+Shift+I
+      if (
+        e.ctrlKey &&
+        e.shiftKey &&
+        e.key === "I"
+      ) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener(
+      "copy",
+      preventCopy
+    );
+
+    document.addEventListener(
+      "cut",
+      preventCopy
+    );
+
+    document.addEventListener(
+      "paste",
+      preventCopy
+    );
+
+    document.addEventListener(
+      "contextmenu",
+      preventCopy
+    );
+
+    document.addEventListener(
+      "selectstart",
+      preventSelect
+    );
+
+    document.addEventListener(
+      "keydown",
+      handleKeyDown
+    );
+
+    return () => {
+      document.removeEventListener(
+        "copy",
+        preventCopy
+      );
+
+      document.removeEventListener(
+        "cut",
+        preventCopy
+      );
+
+      document.removeEventListener(
+        "paste",
+        preventCopy
+      );
+
+      document.removeEventListener(
+        "contextmenu",
+        preventCopy
+      );
+
+      document.removeEventListener(
+        "selectstart",
+        preventSelect
+      );
+
+      document.removeEventListener(
+        "keydown",
+        handleKeyDown
+      );
+    };
+  }, []);
+
   return (
     <div style={styles.page}>
       <div style={styles.card}>
