@@ -28,7 +28,7 @@ export default function App() {
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
-    if (!started) return;
+    if (!started || finished) return;
 
     if (timeLeft <= 0) {
       finishQuiz();
@@ -40,7 +40,7 @@ export default function App() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeLeft, started]);
+  }, [timeLeft, started, finished]);
 
   const handleNext = () => {
     if (isSaving) return;
@@ -89,7 +89,7 @@ export default function App() {
   };
 
   const finishQuiz = async () => {
-    if (isSaving) return;
+    if (finished || isSaving) return;
 
     setIsSaving(true);
 

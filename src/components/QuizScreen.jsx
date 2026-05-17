@@ -54,11 +54,6 @@ export default function QuizScreen({
             opacity: isSaving ? 0.5 : 1,
             cursor: isSaving ? "not-allowed" : "pointer",
           }}
-          // style={{
-          //   ...styles.nextButton,
-          //   opacity: selectedAnswer === null ? 0.5 : 1,
-          //   cursor: selectedAnswer === null ? "not-allowed" : "pointer",
-          // }}
         >
           {isSaving
             ? "Menyimpan..."
