@@ -2,11 +2,13 @@ import React from "react";
 import styles from "../styles/styles";
 
 export default function ResultScreen({
-  percentage,
   score,
   totalQuestions,
+  percentage,
   getResult,
+  styles,
   userAnswers,
+  resetQuiz,
 }) {
   return (
     <div style={styles.page}>
@@ -27,10 +29,10 @@ export default function ResultScreen({
           <h3>Kriteria Penilaian</h3>
 
           <ul>
-            <li>96 - 100 : Sangat Teliti</li>
+            <li>96 - 100 : Sangat Baik</li>
             <li>80 - 95 : Baik</li>
             <li>65 - 79 : Cukup</li>
-            <li>50 - 64 : Kurang Teliti</li>
+            <li>50 - 64 : Kurang</li>
             <li>&lt; 50 : Perlu Belajar</li>
           </ul>
         </div>
@@ -80,6 +82,9 @@ export default function ResultScreen({
               </div>
             ))}
         </div>
+        <button style={styles.startButton} onClick={resetQuiz}>
+          Kembali ke Menu Awal
+        </button>
       </div>
     </div>
   );

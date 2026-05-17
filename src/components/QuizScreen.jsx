@@ -9,6 +9,7 @@ export default function QuizScreen({
   handleNext,
   formatTime,
   timeLeft,
+  isSaving,
 }) {
   return (
     <div style={styles.page}>
@@ -47,14 +48,21 @@ export default function QuizScreen({
 
         <button
           onClick={handleNext}
-          disabled={selectedAnswer === null}
+          disabled={isSaving}
           style={{
             ...styles.nextButton,
-            opacity: selectedAnswer === null ? 0.5 : 1,
-            cursor: selectedAnswer === null ? "not-allowed" : "pointer",
+            opacity: isSaving ? 0.5 : 1,
+            cursor: isSaving ? "not-allowed" : "pointer",
           }}
+          // style={{
+          //   ...styles.nextButton,
+          //   opacity: selectedAnswer === null ? 0.5 : 1,
+          //   cursor: selectedAnswer === null ? "not-allowed" : "pointer",
+          // }}
         >
-          {currentQuestion + 1 === questions.length
+          {isSaving
+            ? "Menyimpan..."
+            : currentQuestion + 1 === questions.length
             ? "Selesai"
             : "Soal Berikutnya"}
         </button>

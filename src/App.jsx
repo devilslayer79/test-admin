@@ -25,6 +25,7 @@ export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     if (!started) return;
@@ -42,6 +43,7 @@ export default function App() {
   }, [timeLeft, started]);
 
   const handleNext = () => {
+    if (isSaving) return;
     const isCorrect = selectedAnswer === quizQuestions[currentQuestion].answer;
 
     if (isCorrect) {
@@ -87,9 +89,19 @@ export default function App() {
   };
 
   const finishQuiz = async () => {
-    await saveResult();
+    if (isSaving) return;
 
-    setFinished(true);
+    setIsSaving(true);
+
+    try {
+      await saveResult();
+
+      setFinished(true);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handlePasswordLogin = () => {
@@ -122,6 +134,18 @@ export default function App() {
     } else {
       console.log("Berhasil simpan:", data);
     }
+  };
+
+  const resetQuiz = () => {
+    setCurrentQuestion(0);
+    setSelectedAnswer(null);
+    setScore(0);
+    setFinished(false);
+    setTimeLeft(300);
+    setStarted(false);
+    setUserAnswers([]);
+    setQuizQuestions([]);
+    setParticipantName("");
   };
 
   if (!isAuthenticated) {
@@ -166,6 +190,7 @@ export default function App() {
         getResult={getResult}
         styles={styles}
         userAnswers={userAnswers}
+        resetQuiz={resetQuiz}
       />
     );
   }
@@ -180,6 +205,7 @@ export default function App() {
       timeLeft={timeLeft}
       formatTime={formatTime}
       styles={styles}
+      isSaving={isSaving}
     />
   );
 }
