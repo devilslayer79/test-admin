@@ -19,13 +19,13 @@ export default function ResultScreen({
           <span style={styles.scoreText}>{percentage}%</span>
         </div>
 
-        <h2 style={styles.resultStatus}>{getResult()}</h2>
+        {/* <h2 style={styles.resultStatus}>{getResult()}</h2> */}
 
         <p style={styles.resultDetail}>
           Jawaban benar: {score} dari {totalQuestions} soal
         </p>
 
-        <div style={styles.gradingBox}>
+        {/* <div style={styles.gradingBox}>
           <h3>Kriteria Penilaian</h3>
 
           <ul>
@@ -35,7 +35,7 @@ export default function ResultScreen({
             <li>50 - 64 : Kurang</li>
             <li>&lt; 50 : Perlu Belajar</li>
           </ul>
-        </div>
+        </div> */}
 
         {/* REVIEW JAWABAN */}
         <div style={{ marginTop: "40px", textAlign: "left" }}>
