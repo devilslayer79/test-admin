@@ -253,6 +253,173 @@ const styles = {
     textAlign: "center",
     fontSize: "14px",
   },
+
+  adminDashboardHeader: {
+    marginBottom: "30px",
+  },
+
+  adminDashboardSubtitle: {
+    fontSize: "16px",
+    color: "#475569",
+  },
+
+  adminStatsContainer: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+    gap: "20px",
+    marginBottom: "30px",
+  },
+
+  adminTableHead: {
+    backgroundColor: "#0f172a",
+  },
+
+  adminTableRow: {
+    borderBottom: "1px solid #e2e8f0",
+  },
+
+  adminActionButton: {
+    backgroundColor: "#2563eb",
+    color: "#ffffff",
+    border: "none",
+    padding: "10px 16px",
+    borderRadius: "10px",
+    cursor: "pointer",
+    fontWeight: "600",
+  },
+
+  adminScoreBadge: {
+    backgroundColor: "#dcfce7",
+    color: "#166534",
+    padding: "6px 12px",
+    borderRadius: "999px",
+    fontWeight: "600",
+    fontSize: "13px",
+  },
+
+  adminTableCell: {
+    padding: "16px",
+    color: "#1e293b",
+    fontSize: "14px",
+    verticalAlign: "middle",
+  },
+
+  adminTableHeaderCell: {
+    padding: "16px",
+    color: "#ffffff",
+    fontSize: "14px",
+    fontWeight: "600",
+    textAlign: "left",
+    borderBottom: "1px solid #334155",
+  },
+
+  adminTable: {
+    width: "100%",
+    borderCollapse: "collapse",
+  },
+
+  adminTableWrapper: {
+    backgroundColor: "#ffffff",
+    borderRadius: "18px",
+    overflow: "hidden",
+    border: "1px solid #cbd5e1",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.06)",
+  },
+
+  adminStatValue: {
+    fontSize: "34px",
+    fontWeight: "700",
+    color: "#0f172a",
+  },
+
+  adminStatLabel: {
+    fontSize: "14px",
+    color: "#64748b",
+    marginBottom: "10px",
+  },
+
+  adminStatCard: {
+    backgroundColor: "#ffffff",
+    borderRadius: "16px",
+    padding: "24px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+    border: "1px solid #e2e8f0",
+  },
+
+  adminDashboardTitle: {
+    fontSize: "36px",
+    fontWeight: "700",
+    color: "#0f172a",
+    marginBottom: "8px",
+  },
+
+  adminDashboardContainer: {
+    minHeight: "100vh",
+    backgroundColor: "#f1f5f9",
+    padding: "30px",
+  },
+
+  adminModalOverlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(15, 23, 42, 0.7)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "20px",
+    zIndex: 999,
+  },
+
+  adminModalContent: {
+    backgroundColor: "#ffffff",
+    width: "100%",
+    maxWidth: "900px",
+    maxHeight: "90vh",
+    overflowY: "auto",
+    borderRadius: "20px",
+    padding: "30px",
+    boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+  },
+
+  adminCloseButton: {
+    backgroundColor: "#ef4444",
+    color: "#ffffff",
+    border: "none",
+    padding: "10px 16px",
+    borderRadius: "10px",
+    cursor: "pointer",
+    fontWeight: "600",
+  },
+
+  adminCloseButton: {
+    border: "none",
+    background: "#ef4444",
+    color: "#fff",
+    padding: "10px 16px",
+    borderRadius: "10px",
+    cursor: "pointer",
+  },
+
+  adminAnswerCardCorrect: {
+    backgroundColor: "#f0fdf4",
+    border: "1px solid #86efac",
+    borderLeft: "6px solid #22c55e",
+    borderRadius: "14px",
+    padding: "18px",
+    marginBottom: "16px",
+  },
+
+  adminAnswerCardWrong: {
+    backgroundColor: "#fef2f2",
+    border: "1px solid #fca5a5",
+    borderLeft: "6px solid #ef4444",
+    borderRadius: "14px",
+    padding: "18px",
+    marginBottom: "16px",
+  },
 };
 
 export default styles;
